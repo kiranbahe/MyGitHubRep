@@ -1,0 +1,88 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.xssf.eventusermodel.XSSFSheetXMLHandler;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.annotations.Test;
+
+import com.stockAcc.Master.stockMaster;
+
+
+public class keywordDriven {
+	@Test
+	public void driver1() throws IOException{
+		
+		stockMaster sm1=new stockMaster();
+		String xlpath="D:\\kiran Doc\\Selenium Project\\StockAccounting\\src\\com\\stock\\Testdata\\keyword.xlsx";
+		String xloutpath="D:\\kiran Doc\\Selenium Project\\StockAccounting\\src\\com\\stock\\Testdata\\keywordOutput1.xlsx";
+		String res=null;
+		FileInputStream fi=new FileInputStream(xlpath);
+		XSSFWorkbook wb=new XSSFWorkbook(fi);
+		XSSFSheet ws1=wb.getSheet("TestCase");
+		XSSFSheet ws2=wb.getSheet("TestSteps");
+		int tcid=ws1.getLastRowNum();
+		int tstcid=ws2.getLastRowNum();
+		
+		for (int i = 1; i <= tcid; i++) {
+			String value=ws1.getRow(i).getCell(2).getStringCellValue();
+			if (value.equalsIgnoreCase("Y")) {
+				String tcidnum=ws1.getRow(i).getCell(0).getStringCellValue();
+				for (int j = 1; j <= tstcid; j++) {
+					String tstcidnum=ws2.getRow(j).getCell(0).getStringCellValue();
+					if (tstcidnum.equalsIgnoreCase(tcidnum)) {
+						String key=ws2.getRow(j).getCell(3).getStringCellValue();
+						System.out.println(key);
+						
+						switch (key) {
+						case "sLogin" :
+							res=sm1.stockAcc_Login(sm1.uname, sm1.pwd);
+							break;
+						case "sLaunch" :
+							res=sm1.stockAcc_Launch("firefox", sm1.url);
+							break;
+						case "sLogout" :
+							res=sm1.stockAcc_Logout();
+							sm1.stockAcc_Close();
+							break;
+						case "sSupplier" :
+							res=sm1.stockAcc_SupplierCreation("rama", "ameerpeth", "Banglore", "IND", "venki", "1235", "sdfgv", "4785", "ffdsf");
+							break;
+						case "sCat" :
+							res=sm1.stockAcc_stockcatCreation("Audi");
+							break;
+						case "sUom" :
+							res=sm1.stockAcc_UnitofMcreation("5558", "sdkfhs");
+							break;
+
+						}
+						ws2.getRow(j).createCell(4).setCellValue(res);
+						if(ws2.getRow(j).getCell(4).getStringCellValue().equalsIgnoreCase("Fail"))
+						{
+							ws1.getRow(i).createCell(3).setCellValue(res);
+							
+						}
+						else
+						{
+							ws1.getRow(i).createCell(3).setCellValue("Fail");
+						}
+						
+					}
+					
+				}
+				
+			}
+			else{
+				ws1.getRow(i).createCell(3).setCellValue("Blocked");
+			}
+		}
+		FileOutputStream fo=new FileOutputStream(xloutpath);
+		wb.write(fo);
+		wb.close();
+		
+	}
+	
+	
+}

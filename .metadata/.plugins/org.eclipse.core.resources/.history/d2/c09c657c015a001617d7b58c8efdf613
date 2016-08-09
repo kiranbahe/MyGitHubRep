@@ -1,0 +1,32 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.poi.xssf.eventusermodel.XSSFSheetXMLHandler;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.annotations.Test;
+
+
+public class keywordDriven {
+	@Test
+	public void driver1() throws IOException{
+		
+		String xlpath="D:\\kiran Doc\\Selenium Project\\StockAccounting\\src\\com\\stock\\Testdata\\keyword.xlsx";
+		String xloutpath="D:\\kiran Doc\\Selenium Project\\StockAccounting\\src\\com\\stock\\Testdata\\keywordOutput.xlsx";
+		String res=null;
+		FileInputStream fi=new FileInputStream(xlpath);
+		XSSFWorkbook wb=new XSSFWorkbook(fi);
+		XSSFSheet ws1=wb.getSheet("TestCase");
+		XSSFSheet ws2=wb.getSheet("TestSteps");
+		int tcid=ws1.getLastRowNum();
+		int tstcid=ws2.getLastRowNum();
+		
+		for (int i = 1; i < tcid; i++) {
+			
+		}
+		
+	}
+	
+	
+}

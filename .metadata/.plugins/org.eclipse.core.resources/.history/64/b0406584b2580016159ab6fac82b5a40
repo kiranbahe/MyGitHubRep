@@ -1,0 +1,93 @@
+package com.stockAcc.Test;
+
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.server.browserlaunchers.Sleeper;
+import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+
+import com.stockAcc.Master.stockMaster;
+
+public class TestNGmasterFile extends stockMaster{
+
+	@BeforeSuite
+	public void LaunchApp()
+	{
+		String expval="Login";
+//		if(br.equalsIgnoreCase("firefox")){
+			driver=new FirefoxDriver();
+//		}
+//		else if (br.equalsIgnoreCase("chorme"))
+//		{
+//			System.setProperty("webdriver.chrome.driver", "C:\\Users\\kiran.b\\Downloads\\chromedriver.exe");
+//			driver=new ChromeDriver();
+//		} 
+//		else if(br.equalsIgnoreCase("IE"))
+//		{
+//			System.setProperty("webdriver.ie.driver", "C:\\Users\\kiran.b\\Downloads\\IEDriverServer.exe");
+//			driver=new InternetExplorerDriver();
+//		}				
+		
+		driver.get("http://webapp.qedgetech.com");
+		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		String actval=driver.findElement(By.id("btnsubmit")).getText();
+		Assert.assertEquals(actval, expval);
+		
+	}
+	
+	@BeforeTest
+	public void Login_stkAcc(){
+		String expVal="Administrator";
+		WebElement uname=driver.findElement(By.id("username"));
+		uname.clear();
+		uname.sendKeys("admin");
+	WebElement pwd=	driver.findElement(By.id("password"));
+	pwd.clear();
+	pwd.sendKeys("master");
+		driver.findElement(By.id("btnsubmit")).click();
+		String actVal=driver.findElement(By.xpath(".//*[@id='msUserName']/font/strong")).getText();
+		Assert.assertEquals(actVal, expVal);
+		
+		
+	}
+	
+	/*@AfterTest
+	public void Logout_stkAcc(){
+		String expval="Login";
+		driver.findElement(By.id("logout")).click();
+		Sleeper.sleepTight(5000);
+//		driver.findElement(By.xpath("html/body/div[17]/div[2]/div/div[4]/div[2]/button[1]")).click();
+		List<WebElement> button=driver.findElements(By.tagName("button"));
+		for (int i = 0; i < button.size(); i++)
+		{
+			String text=button.get(i).getText();
+			if (text.equalsIgnoreCase("ok!"))
+			{
+				button.get(i).click();
+				break;
+			}
+			
+		}
+		
+		//		driver.findElement(By.xpath("html/body/div[17]/div[2]/div/div[4]/div[2]/button[1]")).click();
+		//String actval=driver.findElement(By.id("btnsubmit")).getText();
+		//Assert.assertEquals(actval, expval);
+	}*/
+	
+	@AfterSuite
+	public void CloseApp_stkAcc(){
+		driver.close();
+	}
+}

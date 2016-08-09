@@ -1,0 +1,53 @@
+package com.POM.framework;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class StockAcc_Suppliers {
+	
+	String SupplierName="Rajesh";
+	String Address="Shivaji Park";
+	String City="Nashik";
+	String Country="India";
+	String CPerson="Salman";
+	String PNumber="46485";
+	String Email="A@gmail.com";
+	String MNumber="13132323";
+	String Note="Welcome";
+	
+	@FindBy(xpath="//span[contains(@class,'glyphicon glyphicon-plus')][contains(@data-caption,'Add')]")
+	WebElement add;
+	
+	@FindBy(id="x_Supplier_Name")
+	WebElement Sname;
+	
+	@FindBy(id="x_Address")
+	WebElement Add;
+	
+	@FindBy(id="x_City")
+	WebElement city;
+	
+	@FindBy(id="x_Country")
+	WebElement country;
+	@FindBy(id="x_Contact_Person")
+	WebElement Cperson;
+	
+	@FindBy(id="x_Phone_Number")
+	WebElement Pnumber;
+	
+	@FindBy(id="x__Email")
+	WebElement email;
+	
+	@FindBy(id="x_Mobile_Number")
+	WebElement Mnumber;
+	
+	@FindBy(id="x_Notes")
+	WebElement note;
+	
+	
+	public void SuppliersCreation(String name,String Address,String xcity,String xcountry,String xCperson,String xpNum,String xemail,String xmNum,String xnote){
+		Sname.sendKeys(SupplierName);
+		Add
+	}
+
+}

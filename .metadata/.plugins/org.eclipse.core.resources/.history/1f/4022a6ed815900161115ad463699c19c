@@ -1,0 +1,17 @@
+package com.POM.framework;
+
+import org.testng.annotations.Test;
+
+public class SupplierCreationTestCase extends constant {
+	
+	@Test
+	public void Supplier(){
+		driver.get(sLogin.url);
+		driver.manage().window().maximize();
+		sLogin.login(sLogin.user, sLogin.pwd);
+		sAdminpg.suppliersclk();
+		StkSup.ClickAdd();
+		StkSup.SuppliersCreation(StkSup.SupplierName, StkSup.Address, StkSup.City, StkSup.Country, StkSup.yCperson,StkSup.PNum, StkSup.Email, StkSup.MNumber, StkSup.Note);
+	}
+
+}

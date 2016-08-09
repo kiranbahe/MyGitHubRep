@@ -1,0 +1,31 @@
+package com.POM.framework;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class StockAcc_login {
+	
+	public String user="admin"; 
+	public String pwd="master";
+	public String url="http://webapp.qedgetech.com/login.php";
+	
+	@FindBy(id="username")
+	WebElement username;
+	
+	@FindBy(id="password")
+	WebElement password;
+	
+	@FindBy(id="btnsubmit")
+	WebElement submit;
+	
+	@FindBy(id="btnreset")
+	WebElement reset;
+	
+	public void login(String u ,String pwd){
+		username.clear();
+		username.sendKeys(user);
+		password.clear();
+		password.sendKeys(pwd);
+		
+	}
+}

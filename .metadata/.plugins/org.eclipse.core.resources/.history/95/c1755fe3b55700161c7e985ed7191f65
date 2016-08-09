@@ -1,0 +1,30 @@
+package com.stockAcc.utilities;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.Test;
+
+import com.stockAcc.Test.TestNGmasterFile;
+
+public class StockCat_stkAcc extends TestNGmasterFile {
+	
+	@Test
+	public void StockCat(){
+		String catname="laptops";
+		WebElement sitem=driver.findElement(By.linkText("Stock Items"));
+		
+		act=new Actions(driver);
+		act.moveToElement(sitem).build().perform();
+		
+		driver.findElement(By.linkText("Stock Categories")).click();
+		driver.findElement(By.xpath(".//*[@id='ewContentColumn']/div[3]/div[1]/div[1]/div[1]/div/a")).click();
+		driver.findElement(By.id("x_Category_Name")).sendKeys(catname);
+		driver.findElement(By.id("btnAction")).click();
+		driver.findElement(By.xpath("//button[contains(text(),'OK!')]")).click();
+		driver.findElement(By.xpath("//div[contains(@class,'ajs-primary ajs-buttons')]/button[contains(@class,'ajs-button btn btn-primary')]")).click();
+		
+	}
+
+}
+//div[@class='ajs-primary ajs-buttons']/button[@class='ajs-button btn btn-primary']

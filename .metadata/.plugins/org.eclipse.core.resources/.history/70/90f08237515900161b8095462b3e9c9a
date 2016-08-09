@@ -1,0 +1,16 @@
+package com.POM.framework;
+
+import org.testng.annotations.Test;
+
+public class AdminPgTestCase extends constant {
+	
+	@Test
+	public void AdminPg(){
+		driver.get(sAdminpg.url);
+		sLogin.login(sLogin.user, sLogin.pwd);
+		sAdminpg.Dashboardclk();
+		sAdminpg.suppliersclk();
+		sAdminpg.logout1clk();
+	}
+
+}
